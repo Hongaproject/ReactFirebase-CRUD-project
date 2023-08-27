@@ -1,3 +1,5 @@
+// firebase 9.6.1 버전을 사용
+
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 // TODO: Add SDKs for Firebase products that you want to use

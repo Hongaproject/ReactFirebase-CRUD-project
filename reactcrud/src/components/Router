@@ -1,0 +1,25 @@
+// 리액트 v6 
+// import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+
+// eslint-disable-next-line no-lone-blocks
+{/* <Routes>
+	<Route path="/" element={<Home />} />
+	<Route path="/register" element={<Register />} />
+</Routes> */}
+
+// 리액트 v5
+// 강의서 react-router-dom 5.3.0 버전을 사용해서 사용.
+// eslint-disable-next-line no-unused-vars, import/first
+import { HashRouter as Router, Route, Switch } from "react-router-dom";
+
+// eslint-disable-next-line no-lone-blocks
+{/* <Router>
+    <Switch>
+        <Route exact path="/">
+            <Home />
+        </Route>
+        <Route path="/register">
+            <Register />
+        </Route>
+    </Switch>
+</Router> */}
