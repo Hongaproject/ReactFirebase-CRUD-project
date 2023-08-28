@@ -23,3 +23,17 @@ import { HashRouter as Router, Route, Switch } from "react-router-dom";
         </Route>
     </Switch>
 </Router> */}
+
+
+{islogin ? (
+                <div>
+                    <Route exact path="/"> 
+                    {/* 로그인이 되어있으면 HOME화면을 보여 줌 */}
+                        <Home />
+                    </Route>
+                </div>
+                ) : (<Route exact path="/">
+                    {/* useState를 false로 넣어 로그인이 안된 상태로 만들어 둠 
+                        로그인이 안되어 있으면 로그인 창을 보여지게 함 */}
+                    <Auth />
+                 </Route> )}
