@@ -9,7 +9,13 @@ function Auth () {
     const [password, setPassword] = useState("");
 
     const onChange = (e) => {
-        console.log(e.target.name);
+        // e로 부터 target을 받아오고 name,value를 받아온다.
+        const {target: {name, value}} = e;
+        if(name === "email"){
+            setEmail(value);
+        }else if(name === "password"){
+            setPassword(value);
+        }
     }
     
     const onSubmit = (e) => {
