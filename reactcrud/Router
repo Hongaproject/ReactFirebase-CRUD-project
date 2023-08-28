@@ -2,10 +2,13 @@
 // import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 // eslint-disable-next-line no-lone-blocks
-{/* <Routes>
-	<Route path="/" element={<Home />} />
-	<Route path="/register" element={<Register />} />
-</Routes> */}
+            {/* <Router>
+                <Routes>
+                    <Route path="/" element={<Home />} />
+                    <Route path="/register" element={<Register />} />
+                </Routes>
+            </Router> */}
+
 
 // 리액트 v5
 // 강의서 react-router-dom 5.3.0 버전을 사용해서 사용.
@@ -23,17 +26,3 @@ import { HashRouter as Router, Route, Switch } from "react-router-dom";
         </Route>
     </Switch>
 </Router> */}
-
-
-{islogin ? (
-                <div>
-                    <Route exact path="/"> 
-                    {/* 로그인이 되어있으면 HOME화면을 보여 줌 */}
-                        <Home />
-                    </Route>
-                </div>
-                ) : (<Route exact path="/">
-                    {/* useState를 false로 넣어 로그인이 안된 상태로 만들어 둠 
-                        로그인이 안되어 있으면 로그인 창을 보여지게 함 */}
-                    <Auth />
-                 </Route> )}

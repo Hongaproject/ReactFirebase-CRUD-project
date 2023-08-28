@@ -5,11 +5,9 @@ import Auth from "../routes/Auth";
 import Home from "../routes/Home";
 
 // Router을 받아와야해서 function Router으로 만들면 중복으로 인식해서 오류가 발생
-const AppRouter = () => {
+const AppRouter = ({ islogin }) => {
     // 로그인 여부에 따라 달라지게 만듬
-    const [islogin, setLogin] = useState(false);
-
-
+    // Router 파일은 routes부분만 보여주기 위해 사용하려고 App파일서 islogin을 props로 받아 옴.
     return(
         <Router>
             <Switch>
@@ -32,6 +30,7 @@ const AppRouter = () => {
                 {/* <Route exact path="/" >
                     {islogin ? <Home /> : <Auth />}
                 </Route > */}
+   
             </Switch>
         </Router>
     );
