@@ -18,9 +18,9 @@ const firebaseConfig = {
   messagingSenderId: process.env.REACT_APP_MESSAGING_ID,
   appId: process.env.REACT_APP_APP_ID
 };
-// // 자동으로 설정을 셋팅해준다.
+// 자동으로 설정을 셋팅해준다.
 
-// // Initialize Firebase
+// Initialize Firebase
 export default firebase.initializeApp(firebaseConfig);
 
 export const authService = firebase.auth();
@@ -45,6 +45,7 @@ export const authService = firebase.auth();
 
 // // Initialize Firebase Authentication and get a reference to the service
 // export const authService = getAuth(app);
+
 
 
 // // Import the functions you need from the SDKs you need
