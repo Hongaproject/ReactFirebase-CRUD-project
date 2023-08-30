@@ -22,14 +22,21 @@ function Auth () {
     
     const onSubmit = async(e) => {
         e.preventDefault();
-        if(newAccount){
+        try{
+            let data;
+            if(newAccount){
             // true시 회원가입
-            await authService.createUserWithEmailAndPassword(email,password);
+                data = await authService.createUserWithEmailAndPassword(email,password);
             // firebaseAuth문서에 createUserWithEmailAndPassword부분에 promise를 사용하라고 적혀있어 async와 await사용 함.
-        } else{
+            } else{
             // false시 로그인
-            await authService.signInWithEmailAndPassword(email,password);
+                data = await authService.signInWithEmailAndPassword(email,password);
+            }
+            console.log(data);
+        } catch(error){
+            console.log(error);
         }
+        
     }
 
     return(
