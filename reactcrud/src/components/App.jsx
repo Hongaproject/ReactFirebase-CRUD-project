@@ -5,7 +5,7 @@ import { useState } from "react";
 
 // jsconfig.json파일에서 src로 시작되는 것을 알게 됨.
 import AppRouter from "components/Router";
-import fbase, { authService } from "fbase";
+import fbase, { authService } from "fbase"; // firebase 부분에서 직접 사용을 하여 import시켜 사용할거임.
 
 function App() {
 
