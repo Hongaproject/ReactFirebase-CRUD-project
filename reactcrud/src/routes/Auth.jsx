@@ -1,7 +1,7 @@
 // //function component
 // export default () => <span>Auth</span>
 
-import { authService } from "fbase";
+import { authService, firebaseInstance } from "fbase";
 import { useState } from "react";
 
 function Auth () {
@@ -42,8 +42,24 @@ function Auth () {
         
     }
 
+    /** 원래 계정이 있을시 로그인하기 글을 누르면 아이디와 비밀번호를 치고 로그인 가능
+        계정이 없을시 회원가입하기 글을 누르면 아이디와 비밀번호를 치고 회원가입 가능*/
     const toggleAccount = () => {
         setNewAccount((prev) => !prev); // newAccount의 반대 값을 받아온다.
+    } 
+
+    const onSocialClick = async (event) => {
+        // console.log(event.target.name); // 확인용으로 사용
+        const {target: {name}} = event; // event서 target을 받아오고 name을 받아 옴.
+
+        let provider; // signInWithPopup공식 문서에서  사용함 
+        if(name === "google"){ // google클릭시 로그인 하겠냐는 창이 나옴
+            provider = new firebaseInstance.auth.GoogleAuthProvider();
+        }else if(name === "github"){ // github클릭시 로그인 하겠냐는 창이 나옴
+            provider = new firebaseInstance.auth.GithubAuthProvider();
+        }
+        const data = await authService.signInWithPopup(provider); // google, github으로 로그인하기 구현하기
+        console.log(data);
     }
 
     return(
@@ -55,11 +71,10 @@ function Auth () {
                 {error}
             </form>
             <span onClick={toggleAccount}>{newAccount ? "로그인하기" : "회원가입하기"}</span>
-            {/* 원래 계정이 있을시 로그인하기 글을 누르면 아이디와 비밀번호를 치고 로그인 가능
-                계정이 없을시 회원가입하기 글을 누르면 아이디와 비밀번호를 치고 회원가입 가능  */}
+            {/* 코드처럼 아이디 비밀번호 옆에 회원가입이 있으면 밑에 로그인하기가 써 있음 반대로 보여줌 */}
             <div>
-                <button>google</button>
-                <button>github</button>
+                <button name="google" onClick={onSocialClick}>google</button>
+                <button name="github" onClick={onSocialClick}>github</button>
             </div>
         </div>
     );
