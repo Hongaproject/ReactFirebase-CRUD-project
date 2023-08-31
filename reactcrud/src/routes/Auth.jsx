@@ -26,11 +26,13 @@ function Auth () {
             let data;
             if(newAccount){
             // true시 회원가입
-                data = await authService.createUserWithEmailAndPassword(email,password);
-            // firebaseAuth문서에 createUserWithEmailAndPassword부분에 promise를 사용하라고 적혀있어 async와 await사용 함.
+                data = await authService.createUserWithEmailAndPassword(email,password); // 사용자 계정 생성
+            // firebaseAuth문서 createUserWithEmailAndPassword부분에 promise를 사용하라고 적혀있어 async와 await사용 함.
             } else{
             // false시 로그인
-                data = await authService.signInWithEmailAndPassword(email,password);
+                data = await authService.signInWithEmailAndPassword(email,password); // 사용자 로그인
+            // firebaseAuth문서 signInWithEmailAndPassword부분에 promise를 사용하라고 적혀있어 async와 await사용 함.
+
             }
             console.log(data);
         } catch(error){
