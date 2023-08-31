@@ -4,7 +4,7 @@
 function Home () {
     return(
         <div>
-            HOME
+            HOME 로그인이 되었습니다.
         </div>
     );
 }
