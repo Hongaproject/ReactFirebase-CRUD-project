@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom/";
+import { Link } from "react-router-dom/cjs/react-router-dom.min";
 
 function Navigation () {
 
@@ -6,10 +6,10 @@ function Navigation () {
         <nav>
             <ul>
                 <li>
-                    <Link to ="/">Home</Link>
+                    <Link to ="/"><button>Home</button></Link>
                 </li>
                 <li>
-                    <Link to ="/profile">Profile</Link>
+                    <Link to ="/profile"><button>Profile</button></Link>
                 </li>
             </ul>
         </nav>

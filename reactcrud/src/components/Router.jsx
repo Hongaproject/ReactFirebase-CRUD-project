@@ -5,6 +5,7 @@ import Auth from "routes/Auth";
 import Home from "routes/Home";
 import Profile from "routes/Profile";
 import Navigation from "components/Navigation";
+import { Redirect } from "react-router-dom/cjs/react-router-dom.min";
 
 // Router을 받아와야해서 function Router으로 만들면 중복으로 인식해서 오류가 발생
 const AppRouter = ({ islogin }) => {
@@ -24,13 +25,18 @@ const AppRouter = ({ islogin }) => {
                          {/* 로그인이 되어있으면 Profile화면을 보여 줌 */}
                         <Profile />
                     </Route>
+                    <Redirect from="*" to="/" /> {/* "/"에 있으면 상관이 없는데 /말고 다른곳에 있으면 "/"로 돌아가게 한다는 뜻 */}
                 </div>
                 ) : (
+                <div>
                     <Route exact path="/">
-                        {/* useState를 false로 넣어 로그인이 안된 상태로 만들어 둠 
+                    {/* useState를 false로 넣어 로그인이 안된 상태로 만들어 둠 
                         로그인이 안되어 있으면 로그인 창을 보여지게 함 */}
                         <Auth />
                     </Route>
+                    <Redirect from="*" to="/" /> {/* "/"에 있으면 상관이 없는데 /말고 다른곳에 있으면 "/"로 돌아가게 한다는 뜻 */}
+                </div>
+                    
                 )}
 
                 {/* 윗 방법과 아래 방법이 같은 방식 */}
