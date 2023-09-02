@@ -22,8 +22,8 @@ const firebaseConfig = {
 
 // Initialize Firebase
 export default firebase.initializeApp(firebaseConfig);
-export const firebaseInstance = firebase; // google, github와 연결하기 위해 사용.
 
+export const firebaseInstance = firebase; // google, github와 연결하기 위해 사용.
 export const authService = firebase.auth(); // 로그인과 회원가입시 사용함.
 export const dbService = firebase.firestore(); // DB를 사용하기 위해 사용함. 
 

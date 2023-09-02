@@ -2,11 +2,21 @@
 // export default () => <span>Auth</span>
 
 import { dbService } from "fbase";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 function Home () {
 
     const [text, setText] = useState("");
+    const [texts, setTexts] = useState("");
+    // promise로 받아 async, await를 꼭 사용해야 함.
+    const getTexts = async () => {
+        const dbTexts = await dbService.collection("texts").get(); 
+        // Home부분에서 텍스트를 작성하면 DB로 자동으로 내용이 저장되고 그 내용을 보여주기위해 사용되는 코드
+        console.log(texts); 
+    }
+    useEffect(() => {
+
+    })
 
     const onChange = (e) => {
         const {target: {value}} = e;
