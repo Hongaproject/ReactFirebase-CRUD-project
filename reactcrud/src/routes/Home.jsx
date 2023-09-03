@@ -3,6 +3,7 @@
 // export default () => <span>Auth</span>
 
 import { dbService } from "fbase";
+// import { query, getDocs, collection } from "firebase/firestore"; // 최신버전 코드
 import { useEffect, useState } from "react";
 
 function Home () {
@@ -11,6 +12,11 @@ function Home () {
     const [texts, setTexts] = useState([]);
     // promise로 받아 async, await를 꼭 사용해야 함.
     const getTexts = async () => {
+        // 최신버전 코드
+        // const dbTexts  = await getDocs(collection(dbService, "texts"));
+        // const q = query(collection(dbService, 'texts'))
+        // const dbTexts = await getDocs(q);
+
         const dbTexts = await dbService.collection("texts").get(); 
         console.log(texts); // Home부분에서 텍스트를 작성하면 DB로 자동으로 내용이 저장되고 그 내용을 보여주기위해 사용되는 코드 
         
@@ -31,6 +37,7 @@ function Home () {
                 // [document.data(), ...prev] // 새로 작성한 내용과, 전에 작성된 내용을 배열 리턴시킴.
                 [textObject, ...prev]  // dacument.data를 객체로 받아와 id를 추가시켜 내용을 보여줌.
             ); 
+            // prev is not iterable TypeError: prev is not iterable오류가 나오면 {}확인해 보기.
         });
     }
     useEffect(() => {
@@ -44,6 +51,17 @@ function Home () {
 
         // setText(e.target.value); // 위에 꺼와 같음.
     }
+    
+    // 최신버전 코드 
+    // const onSubmit = async (event) => {
+    //     event.preventDefault();
+
+    //     await addDoc(collection(dbService, "texts"), {
+    //     text,
+    //     create: Date.now(),
+    //     });
+    //     setText("");
+    //     };
 
     const onSubmit = (e) => {
         e.preventDefault();
