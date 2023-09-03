@@ -1,5 +1,4 @@
 // 강의서 react-router-dom 5.3.0 버전을 사용해서 사용.
-import { useState } from "react";
 import { HashRouter as Router, Route, Switch } from "react-router-dom";
 import Auth from "routes/Auth";
 import Home from "routes/Home";
@@ -16,7 +15,7 @@ const AppRouter = ({ islogin }) => {
             {islogin && <Navigation />} {/* 로그인시에 만 보임. */}
             <Switch>
                 {islogin ? (
-                <div> 
+                <> 
                     <Route exact path="/">
                          {/* 로그인이 되어있으면 HOME화면을 보여 줌 */}
                         <Home />
@@ -26,7 +25,7 @@ const AppRouter = ({ islogin }) => {
                         <Profile />
                     </Route>
                     <Redirect from="*" to="/" /> {/* "/"에 있으면 상관이 없는데 /말고 다른곳에 있으면 "/"로 돌아가게 한다는 뜻 */}
-                </div>
+                </>
                 ) : (
                 <div>
                     <Route exact path="/">
