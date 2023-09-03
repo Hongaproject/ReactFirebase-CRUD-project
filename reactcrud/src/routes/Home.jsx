@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-expressions */
 // //function component
 // export default () => <span>Auth</span>
 
@@ -13,10 +14,21 @@ function Home () {
         const dbTexts = await dbService.collection("texts").get(); 
         // Home부분에서 텍스트를 작성하면 DB로 자동으로 내용이 저장되고 그 내용을 보여주기위해 사용되는 코드
         console.log(texts); 
+        // 공식문서에서 get에서 forEach를 사용할 수 있어 data를 확인 함.
+        dbTexts.forEach((document) => {
+            console.log(document.data()); // state안에 있는 data를 콘손로 확인 하는 코드
+
+            setTexts((prev) => { 
+                // setTexts에 값이 아닌 함수를 넣어 사용함.
+                // set을 함수로 사용하면 이전값에 접근할 수 있음. 
+                // dbTexts안에 있는 모든 doc에 대해 배열 리턴을 시킴 최신 순으로 나타 나게됨.
+                [document.data(), ...prev] // 새로 작성한 내용과, 전에 작성된 내용을 배열 리턴시킴.
+            }) 
+        })
     }
     useEffect(() => {
-
-    })
+        getTexts();
+    }, []);
 
     const onChange = (e) => {
         const {target: {value}} = e;
