@@ -6,7 +6,7 @@ import { dbService } from "fbase";
 // import { query, getDocs, collection } from "firebase/firestore"; // 최신버전 코드
 import { useEffect, useState } from "react";
 
-function Home () {
+function Home ({ userObj }) {
 
     const [text, setText] = useState("");
     const [texts, setTexts] = useState([]);
@@ -31,8 +31,7 @@ function Home () {
             };
 
             setTexts((prev) => 
-                // setTexts에 값이 아닌 함수를 넣어 사용함.
-                // set을 함수로 사용하면 이전값에 접근할 수 있음. 
+                // setTexts에 값이 아닌 함수를 넣어 사용함. set을 함수로 사용하면 이전값에 접근할 수 있음. 
                 // dbTexts안에 있는 모든 doc에 대해 배열 리턴을 시킴 최신 순으로 나타 나게됨.
                 // [document.data(), ...prev] // 새로 작성한 내용과, 전에 작성된 내용을 배열 리턴시킴.
                 [textObject, ...prev]  // dacument.data를 객체로 받아와 id를 추가시켜 내용을 보여줌.
@@ -64,14 +63,16 @@ function Home () {
     //     };
 
     const onSubmit = (e) => {
+        // 이렇게 사용하먄 누구인지 모르고 익명으로만 사용을 하게 됨.
         e.preventDefault();
         // firebaseDB는 collection과 document로 구성이 되어 사용이 됨.
         
         dbService.collection("texts").add({ 
         // collection에 texts라는 이름을 넣어줌
         // add는 document에 자동으로 data값을 넣어 줌.
-        text,
+        text: text,
         create: Date.now(),
+        createId: userObj.uid, // 로그인 된 유저 아이디를 알려 줌.
         })
         setText(""); // text값을 받아 create에 넘겨준다.
     }
@@ -81,6 +82,7 @@ function Home () {
 
     return(
         <div>
+            <h1>로그인이 되었습니다.</h1>
             <form onSubmit={onSubmit}>
                 <input 
                     type="text" 

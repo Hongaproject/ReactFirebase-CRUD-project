@@ -7,7 +7,7 @@ import Navigation from "components/Navigation";
 import { Redirect } from "react-router-dom/cjs/react-router-dom.min";
 
 // Router을 받아와야해서 function Router으로 만들면 중복으로 인식해서 오류가 발생
-const AppRouter = ({ islogin }) => {
+const AppRouter = ({ islogin, userObj }) => {
     // 로그인 여부에 따라 달라지게 만듬
     // Router 파일은 routes부분만 보여주기 위해 사용하려고 App파일서 islogin을 props로 받아 옴.
     return(
@@ -20,7 +20,7 @@ const AppRouter = ({ islogin }) => {
                 <> 
                     <Route exact path="/">
                          {/* 로그인이 되어있으면 HOME화면을 보여 줌 */}
-                        <Home />
+                        <Home userObj={userObj} />
                     </Route>
                     <Route exact path="/profile">
                          {/* 로그인이 되어있으면 Profile화면을 보여 줌 */}

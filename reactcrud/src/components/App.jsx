@@ -21,11 +21,16 @@ function App() {
   //   console.log(authService.currentUser);
   // }, 2000); // setInterval을 사용하기 전에는 null로 찍힘 interval을 사용 후 유저가 나타남.
 
+  const [userObj, setUserObj] = useState(null); // authService과 바뀐다면 user부분에 setUserObj를 넣음.
+  // 누가 작성했는지 알기위해 사용 함.
+  // Router로 props하고 Home부분에 props하여 사용 함.
+
   useEffect(() => {
     authService.onAuthStateChanged((user) => {
       console.log(user); // 유저 나타나는지 확인용
       if(user){
         setLogin(true); // 로그인
+        setUserObj(user); // onAuthStateChanged를 작동시켜 user를 받음 
       }else{
         setLogin(false); // 로그아웃
       }
@@ -35,7 +40,7 @@ function App() {
 
   return (
     <div>
-      { init ? <AppRouter islogin={islogin} /> : "Loding..." }
+      { init ? <AppRouter islogin={islogin} userObj={userObj} /> : "Loding..." }
       <footer>&copy; {new Date().getFullYear()} HSW All Rights Reserved.</footer>
     </div>
   );
