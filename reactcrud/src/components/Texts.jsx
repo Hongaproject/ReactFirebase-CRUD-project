@@ -1,7 +1,11 @@
 import { dbService } from "fbase";
+import { useState } from "react";
 
 function Texts ({userObj, userData}) {
 // userData를 Home에서 props받아 text부분과 userID가 일치한다면 수정 및 삭제를 할 수 있게 함.
+
+    const [edit, setEdit] = useState(false); // 수정모드인지 아닌지를 알기 위해 사용
+    const [newText, setNewText] = useState(userObj.text); // input에 입력된 text를 업데이트 시켜줌. 
 
     const onDelete = () => { // async,await를 사용 할 수 있다.
         const deleteAlert= window.confirm("삭제 하시겠습니까?");
@@ -12,13 +16,44 @@ function Texts ({userObj, userData}) {
         }
     }
 
+    const onEdit = () => {
+        setEdit((prev) => !prev);
+    }
+
+    const onChange = (e) => {
+        const {target: {value}} = e;
+        setNewText(value);
+
+        // setNewText(e.target.value); // 같다.
+    }
+
+    const onSubmit = (e) => {
+        e.preventDefault();
+        dbService.doc(`texts/${userObj.id}`).update({
+            text: newText,
+        }); 
+        setEdit(false);
+    }
+
     return(
         <div>
-            <h4>{userObj.text}</h4>
-            { userData && (
+            { edit ? (
                 <>
-                    <button onClick={onDelete}>삭제</button>
-                    <button>수정</button>
+                    <form onSubmit={onSubmit}>
+                        <input text="text" placeholder="내용 수정 가능합니다." value={newText} required onChange={onChange} />
+                        <input type="submit" value="업데이트" />
+                    </form>
+                    <button onClick={onEdit}>취소</button>
+                </>
+                ) : (
+                <>
+                    <h4>{userObj.text}</h4>
+                    { userData && (
+                        <>
+                            <button onClick={onDelete}>삭제</button>
+                            <button onClick={onEdit}>수정</button>
+                        </>
+                    )}
                 </>
             )}
         </div>
