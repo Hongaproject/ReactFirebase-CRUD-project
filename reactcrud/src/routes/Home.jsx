@@ -2,6 +2,7 @@
 // //function component
 // export default () => <span>Auth</span>
 
+import Texts from "components/Texts";
 import { dbService } from "fbase";
 // import { query, getDocs, collection } from "firebase/firestore"; // 최신버전 코드
 import { useEffect, useState } from "react";
@@ -45,7 +46,7 @@ function Home ({ userObj }) {
 
         dbService.collection("texts").onSnapshot((snapshot) => {
             // console.log("CRUD"); // 첫 번째로는 그냥 나오지만 두 번째 부터는 읽거나 수정 및 삭제를 할 때 나타난다.
-            // snapshot을 이용하면 실시간으로 화면에 보여진다.
+            // snapshot을 이용하면 실시간으로 화면에 보여진다. 
             const textShow = snapshot.docs.map((doc) => ({
                 id: doc.id,
                 ...doc.data(),
@@ -106,9 +107,7 @@ function Home ({ userObj }) {
             </form>
             <div>
                 {texts.map((text) => (
-                    <div key={text.id}>
-                        <h4>{text.text}</h4>
-                    </div>
+                    <Texts key={text.id} userObj={text}/>
                 ))}
             </div>
         </div>
