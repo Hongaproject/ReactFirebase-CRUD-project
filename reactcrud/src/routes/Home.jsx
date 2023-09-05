@@ -107,7 +107,7 @@ function Home ({ userObj }) {
             </form>
             <div>
                 {texts.map((text) => (
-                    <Texts key={text.id} userObj={text}/>
+                    <Texts key={text.id} userObj={text} userData={text.createId === userObj.uid} />
                 ))}
             </div>
         </div>
