@@ -80,9 +80,21 @@ function Home ({ userObj }) {
         // createId부분이 없이 사용하면 누구인지 모르고 익명으로만 사용을 하게 됨.
         e.preventDefault();
 
-        const fileRef = storageService.ref().child(`${userObj.uid}/${uuidv4()}`);
-        const response = await fileRef.putString(fileUrl, "data_url");
-        console.log(response);
+        const fileRef = storageService.ref().child(`${userObj.uid}/${uuidv4()}`); // storage에 이미지 파일을 생성하게 함. uuid는 랜덤으로 id를 생성해줌.
+        const response = await fileRef.putString(fileUrl, "data_url"); // 이미지 URL을 가져와준다.
+        const filesUrl = await response.ref.getDownloadURL(); // 이미지 URL을 만들어서 URL클릭시 사진을 볼 수 있게 해줌.
+
+        const addText = { // 이미지와 함께 글 생성을 하기 위해 코드를 짬.
+            text: text,
+            create: Date.now(),
+            createId: userObj.uid,
+            filesUrl
+        }
+        dbService.collection("texts").add(addText);
+        setText("");
+        setFileUrl("");
+        
+        console.log(await response.ref.getDownloadURL()); // getDownloadURL을 사용하면 사진 URL을 이용하여 사진을 볼 수 있다. 
 
         // firebaseDB는 collection과 document로 구성이 되어 사용이 됨.
         // dbService.collection("texts").add({ 
