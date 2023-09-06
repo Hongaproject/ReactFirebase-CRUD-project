@@ -89,8 +89,22 @@ function Home ({ userObj }) {
         setText(""); // text값을 받아 create에 넘겨준다.
     }
 
-    console.log(texts); // db내용을 보여주기 위해 콘솔로 확인중
+    // console.log(texts); // db내용을 보여주기 위해 콘솔로 확인중
 
+    const onFileChange = (e) => { // 글에 파일을 추가 할 수 있게 만들어 줌.
+        const {target: {files}} = e;
+        console.log(e.target.files);
+
+        const theFile = files[0];
+        console.log(theFile);
+
+        // fileReader API를 받아와서 사용 함. 
+        const reader = new FileReader(); // 파일을 받아와 reader을 생성하고
+        reader.onloadend = (finishEvent) => {
+            console.log(finishEvent);
+        }
+        reader.readAsDataURL(theFile); // readAsDataURL울 사용해서 파일을 읽음.
+    }
 
     return(
         <div>
@@ -103,6 +117,7 @@ function Home ({ userObj }) {
                     onChange={onChange} 
                     value={text}
                 />
+                <input type="file" accept="image/*" onChange={onFileChange} />
                 <input type="submit" value="등록" />
             </form>
             <div>
