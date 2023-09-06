@@ -48,6 +48,8 @@ function Texts ({userObj, userData}) {
                 ) : (
                 <>
                     <h4>{userObj.text}</h4>
+                    {userObj.filesUrl && <img src={userObj.filesUrl} width="50px" height="50px" /> }
+                    {/* userObj에 글이 작성이 되기 때문에 filesUrl를 userObj안으로 넣어야지 나타남. &&를 사용해서 있을때만 나타나게 함.*/}
                     { userData && (
                         <>
                             <button onClick={onDelete}>삭제</button>

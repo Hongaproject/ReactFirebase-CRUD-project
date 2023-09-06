@@ -79,22 +79,40 @@ function Home ({ userObj }) {
     const onSubmit = async (e) => {
         // createId부분이 없이 사용하면 누구인지 모르고 익명으로만 사용을 하게 됨.
         e.preventDefault();
+        let filesUrl = ""; // 사진이 없다면 string으로 받는다.
+        if(fileUrl != ""){ // 사진이 있다면 밑에 코드를 진행시킨다.
+            const fileRef = storageService.ref().child(`${userObj.uid}/${uuidv4()}`); // storage에 이미지 파일을 생성하게 함. uuid는 랜덤으로 id를 생성해줌.
+            const response = await fileRef.putString(fileUrl, "data_url"); // 이미지 URL을 가져와준다.
+            filesUrl = await response.ref.getDownloadURL();
+            // const filesUrl = await response.ref.getDownloadURL(); // 이미지 URL을 만들어서 URL클릭시 사진을 볼 수 있게 해줌.
+            // const filesUrl는 if안에서만 적용이되어 오류가 발생이됨 그래서 밖에 let을 사용해서 const를 빼고 업데이트를 시켜줌.
+            }
+            const addText = { // 이미지와 함께 글 생성을 하기 위해 코드를 짬.
+                text: text,
+                create: Date.now(),
+                createId: userObj.uid,
+                filesUrl
+            }
+            dbService.collection("texts").add(addText);
+            setText("");
+            setFileUrl("");
 
-        const fileRef = storageService.ref().child(`${userObj.uid}/${uuidv4()}`); // storage에 이미지 파일을 생성하게 함. uuid는 랜덤으로 id를 생성해줌.
-        const response = await fileRef.putString(fileUrl, "data_url"); // 이미지 URL을 가져와준다.
-        const filesUrl = await response.ref.getDownloadURL(); // 이미지 URL을 만들어서 URL클릭시 사진을 볼 수 있게 해줌.
+        // 사진을 첨부하여 글을 쓸 때
+        // const fileRef = storageService.ref().child(`${userObj.uid}/${uuidv4()}`); // storage에 이미지 파일을 생성하게 함. uuid는 랜덤으로 id를 생성해줌.
+        // const response = await fileRef.putString(fileUrl, "data_url"); // 이미지 URL을 가져와준다.
+        // const filesUrl = await response.ref.getDownloadURL(); // 이미지 URL을 만들어서 URL클릭시 사진을 볼 수 있게 해줌.
 
-        const addText = { // 이미지와 함께 글 생성을 하기 위해 코드를 짬.
-            text: text,
-            create: Date.now(),
-            createId: userObj.uid,
-            filesUrl
-        }
-        dbService.collection("texts").add(addText);
-        setText("");
-        setFileUrl("");
+        // const addText = { // 이미지와 함께 글 생성을 하기 위해 코드를 짬.
+        //     text: text,
+        //     create: Date.now(),
+        //     createId: userObj.uid,
+        //     filesUrl
+        // }
+        // dbService.collection("texts").add(addText);
+        // setText("");
+        // setFileUrl("");
         
-        console.log(await response.ref.getDownloadURL()); // getDownloadURL을 사용하면 사진 URL을 이용하여 사진을 볼 수 있다. 
+        // console.log(await response.ref.getDownloadURL()); // getDownloadURL을 사용하면 사진 URL을 이용하여 사진을 볼 수 있다. 
 
         // firebaseDB는 collection과 document로 구성이 되어 사용이 됨.
         // dbService.collection("texts").add({ 
