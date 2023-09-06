@@ -11,6 +11,7 @@ function Home ({ userObj }) {
 
     const [text, setText] = useState("");
     const [texts, setTexts] = useState([]);
+    const [fileUrl, setFileUrl] = useState();
     // promise로 받아 async, await를 꼭 사용해야 함.
     // const getTexts = async () => {
     //     // 최신버전 코드
@@ -102,10 +103,18 @@ function Home ({ userObj }) {
         const reader = new FileReader(); // 파일을 받아와 reader을 생성하고
         reader.onloadend = (finishEvent) => {
             console.log(finishEvent);
+            const {currentTarget: {result},} = finishEvent;
+            setFileUrl(result);
+
+            // setFileUrl(finishEvent.currentTarget.result); // 같음
         }
         reader.readAsDataURL(theFile); // readAsDataURL울 사용해서 파일을 읽음.
     }
 
+    const onClearPhoto = () => {
+        setFileUrl(null);
+    }
+    
     return(
         <div>
             <h1>로그인이 되었습니다.</h1>
@@ -119,6 +128,12 @@ function Home ({ userObj }) {
                 />
                 <input type="file" accept="image/*" onChange={onFileChange} />
                 <input type="submit" value="등록" />
+                {fileUrl && (
+                    <div>
+                        <img src={fileUrl} width="50px" height="50px" />
+                        <button onClick={onClearPhoto}>이미지 삭제</button>
+                    </div>
+                )}
             </form>
             <div>
                 {texts.map((text) => (
