@@ -3,9 +3,10 @@
 // export default () => <span>Auth</span>
 
 import Texts from "components/Texts";
-import { dbService } from "fbase";
+import { dbService, storageService } from "fbase";
 // import { query, getDocs, collection } from "firebase/firestore"; // 최신버전 코드
 import { useEffect, useState } from "react";
+import { v4 as uuidv4 } from "uuid";
 
 function Home ({ userObj }) {
 
@@ -75,19 +76,23 @@ function Home ({ userObj }) {
     //     setText("");
     //     };
 
-    const onSubmit = (e) => {
-        // 이렇게 사용하먄 누구인지 모르고 익명으로만 사용을 하게 됨.
+    const onSubmit = async (e) => {
+        // createId부분이 없이 사용하면 누구인지 모르고 익명으로만 사용을 하게 됨.
         e.preventDefault();
+
+        const fileRef = storageService.ref().child(`${userObj.uid}/${uuidv4()}`);
+        const response = await fileRef.putString(fileUrl, "data_url");
+        console.log(response);
+
         // firebaseDB는 collection과 document로 구성이 되어 사용이 됨.
-        
-        dbService.collection("texts").add({ 
-        // collection에 texts라는 이름을 넣어줌
-        // add는 document에 자동으로 data값을 넣어 줌.
-        text: text,
-        create: Date.now(),
-        createId: userObj.uid, // 로그인 된 유저 아이디를 알려 줌.
-        })
-        setText(""); // text값을 받아 create에 넘겨준다.
+        // dbService.collection("texts").add({ 
+        // // collection에 texts라는 이름을 넣어줌
+        // // add는 document에 자동으로 data값을 넣어 줌.
+        // text: text,
+        // create: Date.now(),
+        // createId: userObj.uid, // 로그인 된 유저 아이디를 알려 줌.
+        // })
+        // setText(""); // text값을 받아 create에 넘겨준다.
     }
 
     // console.log(texts); // db내용을 보여주기 위해 콘솔로 확인중
@@ -114,7 +119,7 @@ function Home ({ userObj }) {
     const onClearPhoto = () => {
         setFileUrl(null);
     }
-    
+
     return(
         <div>
             <h1>로그인이 되었습니다.</h1>
