@@ -1,4 +1,4 @@
-import { dbService } from "fbase";
+import { dbService, storageService } from "fbase";
 import { useState } from "react";
 
 function Texts ({userObj, userData}) {
@@ -12,6 +12,7 @@ function Texts ({userObj, userData}) {
         console.log(deleteAlert); 
         if(deleteAlert){
             dbService.doc(`texts/${userObj.id}`).delete(); 
+            storageService.refFromURL(userObj.filesUrl).delete();
             // firebase는 폴더 구조로 되어있음 
         }
     }

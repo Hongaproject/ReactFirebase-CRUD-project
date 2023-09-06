@@ -80,11 +80,11 @@ function Home ({ userObj }) {
         // createId부분이 없이 사용하면 누구인지 모르고 익명으로만 사용을 하게 됨.
         e.preventDefault();
         let filesUrl = ""; // 사진이 없다면 string으로 받는다.
-        if(fileUrl != ""){ // 사진이 있다면 밑에 코드를 진행시킨다.
+        if(fileUrl !== ""){ // 사진이 있다면 밑에 코드를 진행시킨다.
             const fileRef = storageService.ref().child(`${userObj.uid}/${uuidv4()}`); // storage에 이미지 파일을 생성하게 함. uuid는 랜덤으로 id를 생성해줌.
             const response = await fileRef.putString(fileUrl, "data_url"); // 이미지 URL을 가져와준다.
-            filesUrl = await response.ref.getDownloadURL();
-            // const filesUrl = await response.ref.getDownloadURL(); // 이미지 URL을 만들어서 URL클릭시 사진을 볼 수 있게 해줌.
+            filesUrl = await response.ref.getDownloadURL(); // 이미지 URL을 만들어서 URL클릭시 사진을 볼 수 있게 해줌.
+            // const filesUrl = await response.ref.getDownloadURL(); 
             // const filesUrl는 if안에서만 적용이되어 오류가 발생이됨 그래서 밖에 let을 사용해서 const를 빼고 업데이트를 시켜줌.
             }
             const addText = { // 이미지와 함께 글 생성을 하기 위해 코드를 짬.
@@ -147,12 +147,13 @@ function Home ({ userObj }) {
     }
 
     const onClearPhoto = () => {
-        setFileUrl(null);
+        setFileUrl(null); // 이미지 삭제 버튼 클릭 시 삭제가 됨.
     }
 
     return(
         <div>
             <h1>로그인이 되었습니다.</h1>
+            <h4>텍스트 등록시 1~3초 정도 딜레이가 있을 수 있습니다.</h4>
             <form onSubmit={onSubmit}>
                 <input 
                     type="text" 
