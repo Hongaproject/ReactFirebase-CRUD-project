@@ -12,7 +12,7 @@ function Home ({ userObj }) {
 
     const [text, setText] = useState("");
     const [texts, setTexts] = useState([]);
-    const [fileUrl, setFileUrl] = useState();
+    const [fileUrl, setFileUrl] = useState("");
     // promise로 받아 async, await를 꼭 사용해야 함.
     // const getTexts = async () => {
     //     // 최신버전 코드
@@ -147,7 +147,7 @@ function Home ({ userObj }) {
     }
 
     const onClearPhoto = () => {
-        setFileUrl(null); // 이미지 삭제 버튼 클릭 시 삭제가 됨.
+        setFileUrl(""); // 이미지 삭제 버튼 클릭 시 삭제가 됨.
     }
 
     return(
