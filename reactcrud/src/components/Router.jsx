@@ -24,7 +24,7 @@ const AppRouter = ({ islogin, userObj }) => {
                     </Route>
                     <Route exact path="/profile">
                          {/* 로그인이 되어있으면 Profile화면을 보여 줌 */}
-                        <Profile />
+                        <Profile userObj={userObj} />
                     </Route>
                     <Redirect from="*" to="/" /> {/* "/"에 있으면 상관이 없는데 /말고 다른곳에 있으면 "/"로 돌아가게 한다는 뜻 */}
                 </>
