@@ -1,15 +1,15 @@
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
 
-function Navigation () {
+function Navigation ({ userObj }) {
 
     return(
         <nav>
             <ul>
                 <li>
-                    <Link to ="/"><button>Home</button></Link>
+                    <Link to ="/">Home</Link>
                 </li>
                 <li>
-                    <Link to ="/profile"><button>Profile</button></Link>
+                    <Link to ="/profile">{userObj.displayName} Profile</Link>
                 </li>
             </ul>
         </nav>

@@ -6,8 +6,11 @@ import { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
 function Profile ({ userObj }) {
-
+    // userObj를 props해서 사용하는 이유는
+    // authService.currentUser.uid를 사용해도 되지만 소스를 통일하기 위해 사용 함. 오류 예방 가능.
     const history = useHistory();
+    const [newDisplayName, setNewDisplayName] = useState(userObj.displayName);
+
     const onLogoutClick = () => {
         authService.signOut();
         history.push("/");
@@ -22,7 +25,6 @@ function Profile ({ userObj }) {
     //     getTexts();
     // }, []); 
 
-    const [newDisplayName, setNewDisplayName] = useState(userObj.displayName);
     const onChange = (e) => {
         const {target: {value}} = e;
         setNewDisplayName(value);
@@ -45,7 +47,7 @@ function Profile ({ userObj }) {
         <div>
             <form onSubmit={onSubmit}>
                 <input type="text" placeholder="닉네임" onChange={onChange} value={newDisplayName}/>
-                <input type="submit" value="업데이트" />
+                <input type="submit" value="update Profile" />
             </form>
             <button onClick={onLogoutClick}>로그아웃</button>
         </div>
