@@ -5,7 +5,7 @@ import { authService, dbService } from "fbase";
 import { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
-function Profile ({ userObj }) {
+function Profile ({ userObj, updateUser }) {
     // userObj를 props해서 사용하는 이유는
     // authService.currentUser.uid를 사용해도 되지만 소스를 통일하기 위해 사용 함. 오류 예방 가능.
     const history = useHistory();
@@ -40,6 +40,7 @@ function Profile ({ userObj }) {
             await userObj.updateProfile({
                 displayName: newDisplayName,
             });
+            updateUser();
         }
     }
 
