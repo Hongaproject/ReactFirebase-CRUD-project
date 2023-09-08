@@ -12,7 +12,7 @@ const AppRouter = ({ islogin, userObj }) => {
     // Router 파일은 routes부분만 보여주기 위해 사용하려고 App파일서 islogin을 props로 받아 옴.
     return(
         <Router>
-            {islogin && <Navigation />} {/* 로그인시에 만 보임. */}
+            {islogin && <Navigation userObj={userObj} />} {/* 로그인시에 만 보임. */}
             <Switch>
                 {/* Warning: React does not recognize the `computedMatch` prop on a DOM element. If you intentionally want it to appear in the DOM as a custom attribute, spell it as lowercase `computedmatch` instead. If you accidentally passed it from a parent component, remove it from the DOM element. */}
                 {/* 오류시 div말고 Fragment태그 사용 */}
